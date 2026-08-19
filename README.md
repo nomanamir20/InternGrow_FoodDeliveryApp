@@ -11,7 +11,7 @@
 
 ## ✨ Features
 
-- [ ] Restaurant Listing
+- [x] Restaurant Listing
 - [ ] Food Categories
 - [ ] Search
 - [ ] Product Details

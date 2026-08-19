@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/sign_up_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/home/screens/restaurant_menu_screen.dart';
+import '../../features/home/models/mock_restaurants.dart';
 import '../../features/categories/screens/categories_screen.dart';
 import '../../features/search/screens/search_screen.dart';
 import '../../features/product/screens/product_details_screen.dart';
@@ -35,6 +37,18 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const SignUpScreen(),
     ),
 
+    GoRoute(
+      path: '${AppRoutes.home}/:restaurantId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final id = state.pathParameters['restaurantId'] ?? '';
+        final restaurant = mockRestaurants.firstWhere(
+          (r) => r.id == id,
+          orElse: () => mockRestaurants.first,
+        );
+        return RestaurantMenuScreen(restaurant: restaurant);
+      },
+    ),
     GoRoute(
       path: '${AppRoutes.productDetails}/:id',
       parentNavigatorKey: _rootNavigatorKey,
