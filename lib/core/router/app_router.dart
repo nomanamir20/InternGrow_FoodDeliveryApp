@@ -7,6 +7,7 @@ import '../../features/home/screens/home_screen.dart';
 import '../../features/home/screens/restaurant_menu_screen.dart';
 import '../../features/home/models/mock_restaurants.dart';
 import '../../features/categories/screens/categories_screen.dart';
+import '../../features/categories/screens/category_meals_screen.dart';
 import '../../features/search/screens/search_screen.dart';
 import '../../features/product/screens/product_details_screen.dart';
 import '../../features/cart/screens/cart_screen.dart';
@@ -47,6 +48,14 @@ final GoRouter appRouter = GoRouter(
           orElse: () => mockRestaurants.first,
         );
         return RestaurantMenuScreen(restaurant: restaurant);
+      },
+    ),
+    GoRoute(
+      path: '${AppRoutes.categories}/:category',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final category = state.pathParameters['category'] ?? '';
+        return CategoryMealsScreen(category: category);
       },
     ),
     GoRoute(

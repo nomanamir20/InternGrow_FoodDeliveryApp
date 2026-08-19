@@ -12,7 +12,7 @@
 ## ✨ Features
 
 - [x] Restaurant Listing
-- [ ] Food Categories
+- [x] Food Categories
 - [ ] Search
 - [ ] Product Details
 - [ ] Cart Management
