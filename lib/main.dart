@@ -8,6 +8,7 @@ import 'core/services/auth_service.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_cubit.dart';
 import 'features/auth/cubit/auth_cubit.dart';
+import 'features/cart/cubit/cart_cubit.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -30,6 +31,7 @@ class InternGrowFoodDeliveryApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => AuthCubit(AuthService())),
+        BlocProvider(create: (_) => CartCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

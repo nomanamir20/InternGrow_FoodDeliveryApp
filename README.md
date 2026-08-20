@@ -14,7 +14,7 @@
 - [x] Restaurant Listing
 - [x] Food Categories
 - [x] Search
-- [ ] Product Details
+- [x] Product Details
 - [ ] Cart Management
 - [ ] Delivery Address
 - [ ] Order Tracking

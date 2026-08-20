@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 /// Centralized color tokens — a single place to re-theme the whole app.
 class AppColors {
   AppColors._();
-
   static const Color primary = Color(0xFFFF5A1F);   // Warm orange — food/appetite association
   static const Color primaryDark = Color(0xFFE64A0F);
   static const Color accent = Color(0xFF2F9E44);      // Green — "delivered", fresh, success
+  static const Color success = Color(0xFF2F9E44);
   static const Color error = Color(0xFFE03131);
   static const Color warning = Color(0xFFF08C00);
 
