@@ -16,12 +16,12 @@
 - [x] Search
 - [x] Product Details
 - [x] Cart Management
-- [ ] Delivery Address
+- [x] Delivery Address
 - [ ] Order Tracking
 - [ ] User Profile
 
 ### Upgrade Features
-- [ ] Maps Integration (OpenStreetMap via flutter_map)
+- [x] Maps Integration (OpenStreetMap via flutter_map)
 - [ ] Live Order Status
 - [ ] Firebase Notifications
 - [ ] Coupon System
