@@ -15,7 +15,7 @@
 - [x] Food Categories
 - [x] Search
 - [x] Product Details
-- [ ] Cart Management
+- [x] Cart Management
 - [ ] Delivery Address
 - [ ] Order Tracking
 - [ ] User Profile
