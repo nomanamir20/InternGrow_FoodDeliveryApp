@@ -74,7 +74,8 @@ class _AddressScreenState extends State<AddressScreen> {
     );
 
     context.read<AddressCubit>().addAddress(address);
-    context.go(AppRoutes.orderTracking.replaceFirst(':orderId', 'new'));
+       final newOrderId = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
+       context.go('${AppRoutes.orderTracking}/$newOrderId');
   }
 
   @override
