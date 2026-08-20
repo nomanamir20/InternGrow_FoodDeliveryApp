@@ -13,7 +13,7 @@
 
 - [x] Restaurant Listing
 - [x] Food Categories
-- [ ] Search
+- [x] Search
 - [ ] Product Details
 - [ ] Cart Management
 - [ ] Delivery Address
