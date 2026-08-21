@@ -117,11 +117,6 @@ class ProfileScreen extends StatelessWidget {
             onTap: () => context.push(AppRoutes.orderHistory),
           ),
           _SettingsTile(
-            icon: Icons.location_on_outlined,
-            title: 'Delivery Addresses',
-            onTap: () => context.push(AppRoutes.address),
-          ),
-          _SettingsTile(
             icon: Icons.logout,
             title: 'Log Out',
             titleColor: AppColors.error,
