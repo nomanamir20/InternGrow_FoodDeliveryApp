@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
-
+import '../../cart/cubit/cart_cubit.dart';
+import '../../orders/cubit/orders_cubit.dart';
 import '../../../core/router/app_routes.dart';
 import '../../../core/services/location_service.dart';
 import '../../../core/theme/app_colors.dart';
@@ -57,7 +58,7 @@ class _AddressScreenState extends State<AddressScreen> {
     _mapController.move(newLocation, 16);
   }
 
-  void _saveAddress() {
+   void _saveAddress() {
     if (_addressController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a delivery address')),
@@ -74,8 +75,22 @@ class _AddressScreenState extends State<AddressScreen> {
     );
 
     context.read<AddressCubit>().addAddress(address);
-       final newOrderId = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
-       context.go('${AppRoutes.orderTracking}/$newOrderId');
+
+    final cartState = context.read<CartCubit>().state;
+    final newOrderId = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
+
+    context.read<OrdersCubit>().createOrder(
+          id: newOrderId,
+          items: cartState.items,
+          total: cartState.total,
+          deliveryAddress: address.fullAddress,
+          deliveryLatitude: address.latitude,
+          deliveryLongitude: address.longitude,
+        );
+
+    context.read<CartCubit>().clearCart();
+
+    context.go('${AppRoutes.orderTracking}/$newOrderId');
   }
 
   @override
