@@ -18,7 +18,7 @@
 - [x] Cart Management
 - [x] Delivery Address
 - [x] Order Tracking
-- [ ] User Profile
+- [x] User Profile
 
 ### Upgrade Features
 - [x] Maps Integration (OpenStreetMap via flutter_map)
