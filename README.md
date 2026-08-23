@@ -23,7 +23,7 @@
 ### Upgrade Features
 - [x] Maps Integration (OpenStreetMap via flutter_map)
 - [x] Live Order Status
-- [ ] Firebase Notifications
+- [x] Firebase Notifications
 - [x] Coupon System
 
 ---

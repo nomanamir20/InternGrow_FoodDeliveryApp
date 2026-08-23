@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:flutter/services.dart';
+import '../../../core/services/notification_service.dart';
 import '../../../core/router/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/theme_cubit.dart';
@@ -125,6 +126,69 @@ class ProfileScreen extends StatelessWidget {
           ),
 
           const SizedBox(height: 20),
+                    const SizedBox(height: 20),
+          Text(
+            'Developer',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              border: Border.all(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.notifications_outlined, color: AppColors.primary, size: 20),
+                    const SizedBox(width: 8),
+                    const Text('Push Notification Token', style: TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                FutureBuilder<String?>(
+                  future: NotificationService().getToken(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      );
+                    }
+                    final token = snapshot.data;
+                    if (token == null) {
+                      return Text('Not available on this device/browser.', style: TextStyle(color: subTextColor, fontSize: 12));
+                    }
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            token,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: subTextColor, fontSize: 11, fontFamily: 'monospace'),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.copy, size: 16),
+                          onPressed: () => Clipboard.setData(ClipboardData(text: token)),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'Copy this token into Firebase Console → Cloud Messaging → Send test message.',
+                  style: TextStyle(color: subTextColor, fontSize: 11),
+                ),
+              ],
+            ),
+          ),
           Center(
             child: Text('InternGrow Eats v1.0.0', style: TextStyle(color: subTextColor, fontSize: 12)),
           ),

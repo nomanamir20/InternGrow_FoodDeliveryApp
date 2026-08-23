@@ -11,6 +11,7 @@ import 'features/address/cubit/address_cubit.dart';
 import 'features/auth/cubit/auth_cubit.dart';
 import 'features/cart/cubit/cart_cubit.dart';
 import 'features/coupons/cubit/coupon_cubit.dart';
+import 'features/notifications/cubit/notification_cubit.dart';
 import 'features/orders/cubit/orders_cubit.dart';
 import 'firebase_options.dart';
 
@@ -38,6 +39,7 @@ class InternGrowFoodDeliveryApp extends StatelessWidget {
         BlocProvider(create: (_) => AddressCubit()),
         BlocProvider(create: (_) => OrdersCubit()),
         BlocProvider(create: (_) => CouponCubit()),
+        BlocProvider(create: (_) => NotificationBannerCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
