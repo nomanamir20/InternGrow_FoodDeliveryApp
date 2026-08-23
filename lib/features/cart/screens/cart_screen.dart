@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/router/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../coupons/cubit/coupon_cubit.dart';
+import '../../coupons/widgets/coupon_input.dart';
 import '../cubit/cart_cubit.dart';
 import '../models/cart_item_model.dart';
 
@@ -59,53 +61,83 @@ class CartScreen extends StatelessWidget {
             );
           }
 
-          return ListView.separated(
+          return ListView(
             padding: const EdgeInsets.all(16),
-            itemCount: state.items.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, index) => _CartItemTile(item: state.items[index]),
+            children: [
+              for (final item in state.items)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: _CartItemTile(item: item),
+                ),
+              const SizedBox(height: 8),
+              CouponInput(subtotal: state.total),
+            ],
           );
         },
       ),
       bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-        builder: (context, state) {
-          if (state.items.isEmpty) return const SizedBox.shrink();
+        builder: (context, cartState) {
+          if (cartState.items.isEmpty) return const SizedBox.shrink();
 
-          final isDark = Theme.of(context).brightness == Brightness.dark;
+          return BlocBuilder<CouponCubit, CouponState>(
+            builder: (context, couponState) {
+              final discount = couponState.appliedCoupon?.calculateDiscount(cartState.total) ?? 0;
+              final finalTotal = cartState.total - discount;
+              final isDark = Theme.of(context).brightness == Brightness.dark;
 
-          return SafeArea(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
-                border: Border(
-                  top: BorderSide(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return SafeArea(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+                    border: Border(
+                      top: BorderSide(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Subtotal', style: TextStyle(color: subTextColor, fontSize: 15)),
-                      Text(
-                        '\$${state.total.toStringAsFixed(2)}',
-                        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Subtotal', style: TextStyle(color: subTextColor, fontSize: 14)),
+                          Text('\$${cartState.total.toStringAsFixed(2)}'),
+                        ],
+                      ),
+                      if (discount > 0) ...[
+                        const SizedBox(height: 4),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Discount', style: TextStyle(color: AppColors.success, fontSize: 14)),
+                            Text('-\$${discount.toStringAsFixed(2)}', style: const TextStyle(color: AppColors.success)),
+                          ],
+                        ),
+                      ],
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Total', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+                          Text(
+                            '\$${finalTotal.toStringAsFixed(2)}',
+                            style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => context.push(AppRoutes.address),
+                          child: const Text('Proceed to Checkout'),
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => context.push(AppRoutes.address),
-                      child: const Text('Proceed to Checkout'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
         },
       ),
@@ -133,6 +165,7 @@ class CartScreen extends StatelessWidget {
 
     if (confirmed == true && context.mounted) {
       context.read<CartCubit>().clearCart();
+      context.read<CouponCubit>().removeCoupon();
     }
   }
 }

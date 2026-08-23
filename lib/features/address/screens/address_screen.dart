@@ -10,6 +10,7 @@ import '../../../core/services/location_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../cubit/address_cubit.dart';
 import '../models/address_model.dart';
+import '../../coupons/cubit/coupon_cubit.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
@@ -58,7 +59,7 @@ class _AddressScreenState extends State<AddressScreen> {
     _mapController.move(newLocation, 16);
   }
 
-   void _saveAddress() {
+     void _saveAddress() {
     if (_addressController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a delivery address')),
@@ -77,18 +78,25 @@ class _AddressScreenState extends State<AddressScreen> {
     context.read<AddressCubit>().addAddress(address);
 
     final cartState = context.read<CartCubit>().state;
+    final couponState = context.read<CouponCubit>().state;
+    final discount = couponState.appliedCoupon?.calculateDiscount(cartState.total) ?? 0;
+    final finalTotal = cartState.total - discount;
+
     final newOrderId = 'ORD-${DateTime.now().millisecondsSinceEpoch}';
 
     context.read<OrdersCubit>().createOrder(
           id: newOrderId,
           items: cartState.items,
-          total: cartState.total,
+          total: finalTotal,
           deliveryAddress: address.fullAddress,
           deliveryLatitude: address.latitude,
           deliveryLongitude: address.longitude,
+          couponCode: couponState.appliedCoupon?.code,
+          discountAmount: discount,
         );
 
     context.read<CartCubit>().clearCart();
+    context.read<CouponCubit>().removeCoupon();
 
     context.go('${AppRoutes.orderTracking}/$newOrderId');
   }

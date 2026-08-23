@@ -24,7 +24,7 @@
 - [x] Maps Integration (OpenStreetMap via flutter_map)
 - [x] Live Order Status
 - [ ] Firebase Notifications
-- [ ] Coupon System
+- [x] Coupon System
 
 ---
 
