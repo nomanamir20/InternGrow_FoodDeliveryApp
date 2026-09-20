@@ -1,8 +1,28 @@
 # InternGrow — Food Delivery Application
 
-> Task 3 of the InternGrow Mobile Development Internship.
-> A complete food ordering app built in Flutter, using flutter_bloc, TheMealDB REST API,
-> Firebase Auth, Firebase Cloud Messaging, and OpenStreetMap-based delivery address selection.
+A Flutter-based food delivery application that provides a complete food ordering workflow, including restaurant discovery, menu browsing, search, meal details, cart management, delivery address selection, order tracking, coupons, user authentication, and push notifications.
+
+The application integrates the TheMealDB REST API for food data, Firebase Authentication for user accounts, Firebase Cloud Messaging for notifications, and OpenStreetMap for interactive delivery address selection.
+
+> Developed as Task 3 of the InternGrow Mobile Development Internship.
+
+### Topics:
+flutter
+dart
+food-delivery
+mobile-app
+firebase
+firebase-auth
+firebase-cloud-messaging
+rest-api
+bloc
+flutter-bloc
+themealdb
+openstreetmap
+flutter-map
+geolocator
+dio
+go-router
 
 🔗 **Live Demo (Web):** [interngrow-fooddelivery-app.vercel.app](https://interngrow-fooddelivery-app.vercel.app)
 📱 **Download APK:** [Latest Release (v1.0.0)](https://github.com/nomanamir20/InternGrow_FoodDeliveryApp/releases/download/v1.0.0/app-release.apk)
@@ -125,6 +145,59 @@ flutter build web --release
 ```
 
 ---
+## 👨‍💻 My Contribution
+
+This project was independently designed and developed by me as part of the InternGrow Mobile Development Internship.
+
+I was responsible for the complete development and integration of the application, including:
+
+* Flutter UI and responsive application development
+* BLoC/Cubit state management
+* Firebase Authentication
+* TheMealDB REST API integration
+* Restaurant and food category workflows
+* Search and product-detail functionality
+* Cart management and local persistence
+* Delivery address selection using OpenStreetMap
+* Current-location integration using geolocation services
+* Order placement and order-tracking workflows
+* Coupon and discount functionality
+* Firebase Cloud Messaging and notification handling
+* Application navigation using go_router
+* Web and Android builds
+* Testing, debugging, and overall application integration
+
+## 📱 Screenshots
+
+### Home & Restaurant Discovery
+
+
+<img width="374" height="418" alt="image" src="https://github.com/user-attachments/assets/94662b97-60f9-4002-afee-be9cfd9cc1bd" />
+
+### Restaurant Menu
+
+<img width="376" height="420" alt="image" src="https://github.com/user-attachments/assets/f4cc07e9-a12d-4e03-aaf3-3453b3265665" />
+
+
+### Meal Details
+
+
+<img width="375" height="419" alt="image" src="https://github.com/user-attachments/assets/102d2694-3089-47ba-8316-de0a6947c4bc" />
+
+
+### Cart 
+
+
+<img width="374" height="422" alt="image" src="https://github.com/user-attachments/assets/a8ca6fe4-bad1-464d-9bb5-20941908172e" />
+
+### Checkout & Delivery Address
+
+<img width="374" height="418" alt="image" src="https://github.com/user-attachments/assets/2f4af0f8-a81e-48e8-bb41-4b8711e425c8" />
+
+### Order Tracking
+
+<img width="373" height="419" alt="image" src="https://github.com/user-attachments/assets/a4841ea8-7195-481f-9186-e587e5b23232" />
+
 
 ## 📌 Status
 
